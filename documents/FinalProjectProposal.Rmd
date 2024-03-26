@@ -88,7 +88,7 @@ Write about 5 sentences addressing *at least* one of the following questions.
 -   Is there anything that I can do to help your learning in the course?
 -   Other reflections about the content of the module that you would like to share.
 
-*Answer*: I like that we used posit. Using markdowns is interesting because I usually code in just a plain script. Most of the time your explanations of stuff are very clear; for example, I like being walked through GitHub because my first introduction to it was confusing and overwhelming. File paths are also something I was confused about previously but now I understand it much better!
+*Answer*: I like that we used posit. It was a good way to simplify the process of using R to begin with. Using markdowns is interesting because I usually code in just a plain script. Most of the time your explanations of stuff are very clear; for example, I like being walked through GitHub because my first introduction to it was confusing and overwhelming. File paths are also something I was confused about previously but now I understand it much better!
 
 ## Submitting this File
 
