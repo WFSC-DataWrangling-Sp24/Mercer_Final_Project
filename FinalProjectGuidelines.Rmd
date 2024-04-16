@@ -1,0 +1,123 @@
+---
+title: "Final Project"
+output: pdf_document
+date: '`r Sys.Date()`'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Final Project
+
+### Purpose
+
+The purpose of the final project is to synthesize material across the semester.
+
+### Task
+
+Create a fully computationally reproducible project that uses the skills we have learned in the class. Apply them to a dataset of your choosing.
+
+### Criteria for Success
+
+-   Project is in a GitHub repository.
+-   Project is fully computationally reproducible, meaning your instructor can clone your GitHub repo, open the RStudio Project, and successfully recreate your project without having to make any changes to the code.
+-   Project contains code or material from the appropriate number of weeks, as described below.
+-   RMarkdown file contains written descriptions of the tasks being performed.
+
+### Due Date
+
+May 7 at midnight MST
+
+# Final Project Guidelines
+
+For your final project in Data Wrangling in R, you will be synthesizing the concepts we have learned throughout the semester and applying them to a dataset of your choosing.
+
+In many ways, the content of the final project is up to you. However, there are a few guidelines that need to be met for your project to be considered complete. The guidelines differ based on whether you are in WFSC 496B or 596B, so be sure you are looking at the correct section.
+
+Week 1: Spreadsheets\
+Week 2: Intro to R\
+Week 3: Data Tables\
+Week 4: Groups and Joins\
+Week 5: Data Visualization\
+Week 6: Tidy Data\
+Week 7: Dates and Strings\
+Week 8: Problem Decomposition\
+Week 9: Reproducibility\
+Week 10: Functions\
+Week 11: Making Choices\
+Week 12: Iteration\
+Week 13: Spatial Data\
+Week 14: Miscellaneous
+
+## General Requirements for the Project
+
+Based on what I am asking for your project to be, your project will cover content from a number of weeks by default.
+
+1.  **Week 2**: Your project should be written in the R language, meaning you will be using functions and the assignment operator (`<-`).
+
+2.  **Week 8**: Your project should accomplish a larger task with your dataset. In your project RMarkdown file, you should include text:
+
+    -   At the beginning of the document to introduce your dataset and the general tasks that you will be completing in the following code chunks (problem decomposition).
+    -   Text between the code chunks outlining the tasks that each code chunk is performing.
+
+3.  **Week 9:** Your completed project should be in a GitHub repo. You will submit the link to this repo as your submission for the final project.
+
+    -   This repo should contain an RStudio Project
+    -   The RStudio Project should have sub-directories (at a minimum, `data_raw`, `data_clean`, and `figures` or `outputs` folders).
+    -   All file paths in your project should be relative file paths (not absolute).
+
+*Note regarding Week 1:* *If you choose to include content from `Week 1: Spreadsheets`, it should be in the context of (a) creating your own spreadsheet for future data entry that includes data validation or (b) discussion of why you have chosen to save your cleaned data in multiple different "tidy" tables. Reading a spreadsheet file into R does not count. If you have questions, feel free to ask!*
+
+### Demonstrating You've Met the Requirements
+
+To make both of our lives easier, it will really help if you explicitly note somewhere in the final project where content from your required number of weeks is present in your project.
+
+This could take a few forms:
+
+-   a README file (could be the repo's README file) that outlines the weeks covered and where to find each week's material in your RMarkdown file (hint: the source code has line numbers)
+-   within your RMarkdown file and the text accompanying your code, explicitly stating the weeks included in the following code chunk
+-   another way that makes the most sense for you!
+
+### WFSC 496B Requirements
+
+Your final project is worth a total of 300 points and should contain content from at least 6 weeks. Each week of content included is worth 50 points.
+
+In addition to including content from Weeks 2, 8, and 9, as stated above, your final project should include content we learned in at least 3 other weeks, with the following guidelines.
+
+1.  You must include some type of data visualization in your project (Week 5)
+2.  You must include content from at least one of the following weeks:
+    -   Week 10: Functions (writing your own)
+
+    -   Week 11: Making Choices (if/else statements)
+
+    -   Week 12: Iteration (for loops)
+
+### WFSC 596B Requirements
+
+Your final project is worth a total of 500 points and should contain content from 10 different weeks throughout the semester. Each week of content included is worth 50 points.
+
+In addition to including content from Weeks 2, 8, and 9, as stated above, your final project should include content we learned in at least 7 other weeks, with the following guidelines.
+
+1.  You must include some type of data visualization in your project (Week 5)
+2.  You must include content from at least one of the following weeks:
+    -   Week 10: Functions (writing your own)
+
+    -   Week 11: Making Choices (if/else statements)
+
+    -   Week 12: Iteration (for loops)
+
+## Making a New RMarkdown File
+
+For this project, you'll likely need to create a new RMarkdown file.
+
+You're welcome to copy one of the existing .Rmd files for the course, delete the contents, and start your own file, but I'm including instructions below if you'd like to make your own.
+
+1.  Go to File \> New File \> RMarkdown
+2.  From the option list on the left-hand side, make sure Document is selected.
+3.  Add a title and put your name in the "Author" section. You can either leave the date as is or check the box that will automatically fill in the current date.
+4.  Choose the output you would like the file to create when you Knit the file (I usually choose PDF).
+5.  Click "OK" (for reasons I won't go into, do NOT choose "Create Empty Document"
+6.  You should now have a .Rmd file with some stuff in it. The stuff is giving you a brief rundown on how .Rmd files work. You can delete everything from line 11 (`## R Markdown`) and below. You need to leave the YAML (the stuff between the `---` lines) and I recommend leaving the very first code chunk.
+
+You should be good to go!

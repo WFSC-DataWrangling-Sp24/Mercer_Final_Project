@@ -1,0 +1,13 @@
+---
+title: "Mercer_Final"
+author: "Margaret Mercer"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# need something from week 5 (data vis)
+# need something from week 10 (functions), 11 (if/else), OR 12 (for loops)
+# AND FIVE other weeks
