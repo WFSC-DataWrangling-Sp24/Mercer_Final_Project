@@ -10,13 +10,14 @@ library(tidyverse)
 library(suncalc)
 library(lutz) # Week 2: Intro to R
 
+# load deployment and observation data
 obs_2019 <- read_csv("data/SNAPSHOT_USA_2019_observations.csv") # Week 9: Reproducibility
 dep_2019 <- read_csv("data/SNAPSHOT_USA_2019_deployments.csv")
 
 # merge deployment and observation data
 left_joined_19 <- left_join(obs_2019, dep_2019, by = "Site_Name") # Week 4: Joins
 
-# get rid of duplicate columns
+# get rid of duplicate columns leftover from merge
 all_2019 <- left_joined_19[, c("Camera_Trap_Array.x",
                                "Site_Name",
                                "Survey_Days",
@@ -36,12 +37,12 @@ all_2019$Time_Zone <- tz_lookup_coords(all_2019$Latitude.x, all_2019$Longitude.x
 # fix date format
 all_2019$Local_Date_Time <- as.POSIXct(strptime(all_2019$Local_Date_Time, format = "%m/%d/%y %H:%M")) # Week 7: Dates and Times
 
-# fix problem children
+# many of the times are coming out as "NAs". Lines 41 through 68 are to fix this issue.
 all_2019 <- separate(all_2019, Local_Date_Time, c("Date", "Time"), sep = " ") # first we separate dates and times
 all_2019$Time[is.na(all_2019$Time)] <- "00:00:01" # now replace all NAs with "00:00:01"
 sum(is.na(all_2019$Time)) # check for NAs
 
-# it doesn't like the following exact hours, so I'm making them one second past the hour x_x
+# it doesn't like the following exact hours, so I'm changing the times and making them one second past the hour x_x
 all_2019 <- all_2019 %>%
   mutate(Time = if_else(Time == "14:00:00", "14:00:01", Time),
          Time = if_else(Time == "15:00:00", "15:00:01", Time),
@@ -51,13 +52,11 @@ all_2019 <- all_2019 %>%
          Time = if_else(Time == "19:00:00", "19:00:01", Time),
          Time = if_else(Time == "20:00:00", "20:00:01", Time)) # Week 3: Data Tables
 
-# unite to see if it fixed it?
+# unite dates and times and convert to POSIXct format
 all_2019 <- unite(all_2019, Local_Date_Time, c("Date", "Time"), sep = " ") # Week 6: Tidy Data
 all_2019$Local_Date_Time <- as.POSIXct(all_2019$Local_Date_Time)
 
-# for loop!
-# The following took about 10-15 minutes!
-
+# the following took about 10-15 minutes to run!
 for(i in 1:nrow(all_2019)) {
   x <- ymd_hms(all_2019$Local_Date_Time[i], tz = all_2019$Time_Zone[i])
   x <- with_tz(x, tzone = "UTC")
@@ -73,7 +72,7 @@ colnames(all_2019)[4] <- "lat"
 colnames(all_2019)[5] <- "lon"
 colnames(all_2019)[11] <- "date"
 
-# get altitudes
+# get altitudes of each camera observation
 sun_position <- getSunlightPosition(
   data = all_2019,
   keep = c("altitude")
@@ -90,14 +89,12 @@ colnames(all_2019)[6] <- "Local_Date_Time"
 colnames(all_2019)[11] <- "UTC_Date_Time"
 
 
-# now let's code 1s and 0s for altitude (sun position) (1 for night observation, 0 for day observation)
-# so we want a 1 if altitude is negative (sun is below horizon), and a 0 if it's positive (sun is above horizon)
+# code day/night binary. in this column, we want a 1 if altitude is negative (sun is below horizon), and a 0 if it's positive (sun is above horizon)
 all_2019$Is_Night <- if_else(all_2019$Altitude < 0, 1, 0) # Week 11: Making Choices
 
-
-# make a graph of times to make sure fixing time zones worked
+# make a graph of times to be sure that visually, the times look correct and unified
 data <- separate(all_2019, Local_Date_Time, c("Local_Date", "Local_Time"), sep = " ") # Week 6: Tidy Data
 ggplot(data, aes(x = Local_Time, y = Altitude)) +
   geom_point() # Week 5: Data Visualization
 
-# all_2019 now has deployment, observation, and day/night binary!
+# all_2019 now has deployment and observation data, and a day/night column
