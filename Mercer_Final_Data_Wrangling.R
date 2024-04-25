@@ -8,7 +8,9 @@
 
 library(tidyverse)
 library(suncalc)
-library(lutz) # Week 2: Intro to R
+library(lutz)
+library(doParallel)
+library(foreach) # Week 2: Intro to R
 
 # load deployment and observation data
 obs_2019 <- read_csv("data/SNAPSHOT_USA_2019_observations.csv") # Week 9: Reproducibility
@@ -56,13 +58,15 @@ all_2019 <- all_2019 %>%
 all_2019 <- unite(all_2019, Local_Date_Time, c("Date", "Time"), sep = " ") # Week 6: Tidy Data
 all_2019$Local_Date_Time <- as.POSIXct(all_2019$Local_Date_Time)
 
-# the following took about 10-15 minutes to run!
-for(i in 1:nrow(all_2019)) {
-  x <- ymd_hms(all_2019$Local_Date_Time[i], tz = all_2019$Time_Zone[i])
+# fix formatting of date times
+ncores <- parallel::detectCores() - 2
+doParallel::registerDoParallel(ncores)
+all_2019$time_utc <- foreach::foreach(i = 1:length(all_2019$Site_Name), .combine = c) %dopar% {
+  x <- ymd_hms(all_2019$Local_Date_Time[i], tz = all_2019$Time_Zone[i]) # Week 7: Dates and Times
   x <- with_tz(x, tzone = "UTC")
-  all_2019$time_utc[i] <- as.character(x)
-} # Week 12: Iteration
-all_2019$time_utc <- ymd_hms(all_2019$time_utc) # Week 7: Dates and Times
+  as.character(x)
+} # Week 12: Iteration (kind of)
+doParallel::stopImplicitCluster() # Week 14: Parallel Computing
 
 # make sure there are no NAs
 sum(is.na(all_2019$time_utc))
